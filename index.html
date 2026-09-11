@@ -1,0 +1,1278 @@
+<title>Operation Svart Duk</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Saira+Stencil+One&family=Oswald:wght@400;500;600&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap">
+
+<style>
+:root{
+  --bg:#C8C7A9;
+  --surface:#D5D4B9;
+  --panel:#2A2E1B;
+  --panel-ink:#C8C7A9;
+  --panel-muted:#93957A;
+  --ink:#1C2010;
+  --muted:#4A4E31;
+  --line:#9C9B7B;
+  --accent:#8F2A17;
+  --accent-ink:#E6E4CE;
+  --gold:#4B5320;
+  --stamp:#E0140A;
+  --slojan:rgba(200,199,169,.62);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0F1209;
+    --surface:#171B0F;
+    --panel:#070903;
+    --panel-ink:#CFD2B4;
+    --panel-muted:#878B69;
+    --ink:#CFD2B4;
+    --muted:#878B69;
+    --line:#2C3320;
+    --accent:#C4442A;
+    --accent-ink:#0F1209;
+    --gold:#A8B24A;
+    --stamp:#FF2A12;
+    --slojan:rgba(15,18,9,.62);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0F1209;
+  --surface:#171B0F;
+  --panel:#070903;
+  --panel-ink:#CFD2B4;
+  --panel-muted:#878B69;
+  --ink:#CFD2B4;
+  --muted:#878B69;
+  --line:#2C3320;
+  --accent:#C4442A;
+  --accent-ink:#0F1209;
+  --gold:#A8B24A;
+  --stamp:#FF2A12;
+  --slojan:rgba(15,18,9,.62);
+}
+
+*{box-sizing:border-box}
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:"Courier Prime","Courier New",monospace;
+  font-size:16px;
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+  position:relative;
+}
+
+/* ---------- stämpellager ---------- */
+.stamplager{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0}
+.stamp{
+  position:absolute;
+  font-family:Oswald,"Arial Narrow",sans-serif;font-weight:600;text-transform:uppercase;
+  letter-spacing:.22em;white-space:nowrap;line-height:1;
+  color:var(--stamp);border:5px double var(--stamp);
+  padding:10px 20px 8px;opacity:.4;
+}
+.stamp.enkel{border:3px solid var(--stamp);padding:8px 16px 6px}
+.stamp.fyll{background:var(--stamp);color:var(--bg);border-color:var(--stamp);opacity:.34}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]) .stamp{opacity:.5}
+}
+:root[data-theme="dark"] .stamp{opacity:.5}
+
+.page{
+  position:relative;z-index:1;max-width:840px;margin:0 auto;padding:0 20px 64px;
+  display:flex;flex-direction:column;gap:50px;
+  background:var(--slojan);
+  text-shadow:0 0 4px var(--bg),0 0 9px var(--bg),0 0 14px var(--bg);
+}
+/* ogenomskinliga block behöver varken slöja eller halo */
+.remsa,.chevron,.varning,.orderruta,.box,.lag,.niva,.tablewrap,table,
+.forsegling,.stadgar,details.kuvert,.chip,.pill,.obbricka,.styrka em,.punkt b{text-shadow:none}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+p{margin:0}
+h1,h2,h3{margin:0;text-wrap:balance;line-height:1.1}
+
+/* ---------- remsa högst upp ---------- */
+.remsa{
+  background:var(--panel);color:var(--panel-ink);
+  margin:0 -20px;padding:9px 20px;
+  display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
+  font-family:Oswald,sans-serif;text-transform:uppercase;letter-spacing:.2em;font-size:11px;
+}
+.remsa .hot{color:var(--accent)}
+.chevron{
+  height:9px;margin:0 -20px;
+  background:repeating-linear-gradient(135deg,var(--gold) 0 10px,transparent 10px 20px);
+  border-bottom:1px solid var(--line);
+}
+.varning{
+  background:var(--accent);color:var(--accent-ink);
+  margin:0 -20px;padding:10px 20px;
+  font-family:Oswald,sans-serif;text-transform:uppercase;letter-spacing:.13em;font-size:12px;
+  display:flex;gap:8px 16px;flex-wrap:wrap;align-items:baseline;
+}
+.varning b{font-weight:600;font-size:14px;letter-spacing:.16em}
+
+/* ---------- rubriker ---------- */
+.label{
+  font-family:Oswald,"Arial Narrow",sans-serif;font-weight:500;text-transform:uppercase;
+  letter-spacing:.22em;font-size:11px;color:var(--muted);
+}
+.sec{display:flex;flex-direction:column;gap:20px}
+.sec > header{display:flex;flex-direction:column;gap:8px}
+.punkt{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.punkt b{
+  font-family:Oswald,sans-serif;font-weight:600;font-size:11px;letter-spacing:.16em;
+  background:var(--ink);color:var(--bg);padding:3px 8px 2px;
+}
+.punkt span{font-family:Oswald,sans-serif;letter-spacing:.22em;text-transform:uppercase;font-size:11px;color:var(--muted)}
+.sec h2{
+  font-family:Oswald,sans-serif;font-weight:600;text-transform:uppercase;
+  font-size:clamp(26px,5.4vw,38px);letter-spacing:.02em;
+}
+.sec .lead{color:var(--muted);max-width:62ch;font-size:15.5px}
+
+/* ---------- orderhuvud ---------- */
+.order{display:flex;flex-direction:column;gap:18px;padding-top:24px}
+.order .op{
+  font-family:Oswald,sans-serif;font-weight:500;text-transform:uppercase;
+  letter-spacing:.42em;font-size:clamp(14px,3.4vw,20px);color:var(--accent);display:block;margin-bottom:6px;
+}
+.order h1{font-family:"Saira Stencil One",Impact,sans-serif;font-weight:400;font-size:clamp(44px,12.2vw,96px);letter-spacing:.01em;line-height:.98}
+.order .sub{max-width:54ch;color:var(--muted);font-size:16.5px}
+.order .sub b{color:var(--ink);font-weight:700}
+
+.orderruta{border:2px solid var(--ink);background:var(--surface)}
+.orderruta > .rubrik{
+  background:var(--ink);color:var(--bg);padding:7px 16px;
+  font-family:Oswald,sans-serif;text-transform:uppercase;letter-spacing:.24em;font-size:11px;
+  display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;
+}
+.rutor{display:grid;grid-template-columns:repeat(2,1fr)}
+@media (min-width:640px){.rutor{grid-template-columns:repeat(4,1fr)}}
+.ruta{padding:14px 16px 16px;display:flex;flex-direction:column;gap:4px;border-top:1px solid var(--line);border-right:1px solid var(--line)}
+.ruta:nth-child(2n){border-right:0}
+@media (min-width:640px){
+  .ruta{border-top:0}
+  .ruta:nth-child(2n){border-right:1px solid var(--line)}
+  .ruta:last-child{border-right:0}
+}
+.ruta b{font-family:Oswald,sans-serif;font-weight:500;font-size:20px;letter-spacing:.02em;line-height:1.25}
+.ruta b.stark{color:var(--accent)}
+.ruta small{font-size:12.5px;line-height:1.4;color:var(--muted)}
+
+/* ---------- överbefälhavaren ---------- */
+.ob{
+  font-weight:700;color:var(--accent);
+  text-decoration:underline;text-decoration-color:var(--accent);
+  text-decoration-thickness:2px;text-underline-offset:3px;white-space:nowrap;
+}
+.stadgar .ob,.forsegling .ob{color:var(--accent)}
+.varning .ob{color:var(--accent-ink);text-decoration-color:var(--accent-ink)}
+
+.befal{display:flex;flex-direction:column;gap:0}
+.niva{border:2px solid var(--ink);background:var(--surface);padding:15px 18px;display:flex;flex-direction:column;gap:5px}
+.niva .grad{font-family:Oswald,sans-serif;text-transform:uppercase;letter-spacing:.24em;font-size:11px;color:var(--muted)}
+.niva b{font-family:Oswald,sans-serif;font-weight:600;font-size:19px;letter-spacing:.06em;text-transform:uppercase}
+.niva .roll{font-size:14.5px;color:var(--muted);max-width:62ch}
+.niva.hog{border:3px solid var(--accent);background:var(--panel);color:var(--panel-ink)}
+.niva.hog .grad{color:var(--accent);letter-spacing:.3em;font-size:12px}
+.niva.hog b{font-size:clamp(22px,5vw,30px)}
+.niva.hog .roll{color:var(--panel-muted)}
+.pil{
+  align-self:center;font-family:Oswald,sans-serif;text-transform:uppercase;letter-spacing:.24em;
+  font-size:10.5px;color:var(--accent);padding:7px 0;
+}
+.losen{
+  border-top:1px solid var(--line);padding:11px 16px;
+  display:flex;gap:14px;align-items:baseline;flex-wrap:wrap;
+}
+.losen > b{font-family:Oswald,sans-serif;font-weight:600;font-size:17px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
+.losen span{font-size:14px;color:var(--muted)}
+.losen span b{font-weight:700;color:var(--accent)}
+.losen.boter{border-top:3px double var(--accent)}
+.losen.boter > b{color:var(--accent);font-size:19px}
+.losen.boter span{color:var(--ink)}
+
+/* ---------- tidsplan ---------- */
+.ordning{display:flex;flex-direction:column;border-top:1px solid var(--line)}
+.slot{display:grid;grid-template-columns:74px 1fr;gap:16px;padding:12px 0;border-bottom:1px solid var(--line);align-items:baseline}
+.slot time{font-family:Oswald,sans-serif;font-size:17px;letter-spacing:.06em;color:var(--accent);font-variant-numeric:tabular-nums}
+.slot strong{font-family:Oswald,sans-serif;font-weight:500;font-size:17px;letter-spacing:.08em;text-transform:uppercase;display:block}
+.slot p{font-size:15px;color:var(--muted);max-width:58ch}
+
+/* ---------- förplägnad ---------- */
+.meny{display:flex;flex-direction:column;gap:22px}
+.ratt{display:flex;flex-direction:column;gap:6px;padding-left:16px;border-left:3px solid var(--gold)}
+.ratt h3{font-family:Oswald,sans-serif;font-weight:500;text-transform:uppercase;font-size:clamp(21px,4.4vw,27px);letter-spacing:.04em}
+.ratt .desc{color:var(--muted);font-size:15.5px;max-width:60ch}
+.pour{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:4px}
+.chip{
+  font-family:Oswald,sans-serif;text-transform:uppercase;letter-spacing:.16em;font-size:11px;
+  color:var(--accent-ink);background:var(--gold);padding:4px 9px 3px;
+}
+.dryck{font-size:14.5px;color:var(--muted)}
+
+/* ---------- styrka ---------- */
+.styrka{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+  gap:0 26px;margin:0;padding:0;list-style:none;border-bottom:1px solid var(--line);
+}
+.styrka li{padding:10px 0;border-top:1px solid var(--line);font-family:Oswald,sans-serif;font-weight:400;font-size:16.5px;letter-spacing:.03em}
+.styrka li::before{content:"▸ ";color:var(--accent)}
+.styrka em{
+  font-style:normal;font-family:Oswald,sans-serif;font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+  background:var(--accent);color:var(--accent-ink);padding:3px 7px 2px;margin-left:8px;white-space:nowrap;
+}
+
+/* ---------- kontroller ---------- */
+.tools{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+button,select{
+  font-family:Oswald,sans-serif;text-transform:uppercase;letter-spacing:.16em;font-size:11px;
+  background:transparent;color:var(--ink);border:2px solid var(--ink);padding:9px 15px;cursor:pointer;
+  transition:background-color .12s ease,color .12s ease,border-color .12s ease;
+}
+button:hover:not(:disabled),select:hover{background:var(--ink);color:var(--bg)}
+button:disabled{opacity:.45;cursor:default}
+button.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+button.primary:hover:not(:disabled){background:var(--ink);border-color:var(--ink);color:var(--bg)}
+.note{font-size:14px;color:var(--muted)}
+
+/* ---------- gruppering ---------- */
+.lagkort{display:grid;grid-template-columns:repeat(auto-fit,minmax(224px,1fr));gap:16px}
+.lag{background:var(--surface);border:2px solid var(--ink);display:flex;flex-direction:column}
+.lag > header{background:var(--ink);color:var(--bg);padding:8px 14px;display:flex;align-items:baseline;justify-content:space-between;gap:10px}
+.lag h3{flex:1;min-width:0}
+.lag h3 input{
+  font-family:Oswald,sans-serif;font-weight:600;font-size:13px;letter-spacing:.2em;text-transform:uppercase;
+  width:100%;background:transparent;color:inherit;border:0;border-bottom:1px dotted transparent;padding:1px 0;
+}
+.lag h3 input:hover{border-bottom-color:currentColor}
+.lag h3 input:focus{outline:0;border-bottom:1px solid var(--accent)}
+.lag > header span{font-family:Oswald,sans-serif;font-size:11px;letter-spacing:.12em;opacity:.75;font-variant-numeric:tabular-nums;white-space:nowrap}
+.lag ul{margin:0;padding:12px 14px 15px;list-style:none;display:flex;flex-direction:column;gap:6px}
+.lag li{font-size:15.5px;line-height:1.35}
+.lag.rullar li{color:var(--muted);opacity:.7}
+
+/* överbefälhavaren i grupperingen */
+.obbricka{
+  font-style:normal;font-family:Oswald,sans-serif;font-weight:600;font-size:10px;letter-spacing:.16em;
+  text-transform:uppercase;background:var(--accent);color:var(--accent-ink);
+  padding:3px 7px 2px;margin-left:8px;white-space:nowrap;
+}
+.lag.har-ob{border-color:var(--accent);border-width:3px}
+.lag.har-ob > header{background:var(--accent);color:var(--accent-ink)}
+.lag.har-ob > header input:focus{border-bottom-color:var(--accent-ink)}
+.lag li.ob-rad{
+  background:var(--accent);color:var(--accent-ink);
+  margin:2px -14px;padding:7px 14px;
+  font-family:Oswald,sans-serif;font-weight:600;font-size:16px;letter-spacing:.06em;text-transform:uppercase;
+  display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;
+}
+.lag li.ob-rad .ob{color:var(--accent-ink);text-decoration-color:var(--accent-ink);text-decoration-thickness:3px}
+.lag li.ob-rad .obbricka{background:var(--accent-ink);color:var(--accent);margin-left:0}
+.lag.rullar li.ob-rad{opacity:.85;color:var(--accent-ink)}
+td.lagnamn .medlemmar .ob{
+  color:var(--accent);text-decoration-thickness:2px;font-weight:700;
+  text-transform:uppercase;letter-spacing:.04em;
+}
+
+/* ---------- stridsvärde ---------- */
+.tablewrap{overflow-x:auto;border:2px solid var(--ink)}
+table{border-collapse:collapse;width:100%;min-width:500px;background:var(--surface)}
+th,td{text-align:left;padding:9px 14px;border-bottom:1px solid var(--line)}
+thead th{
+  background:var(--ink);color:var(--bg);border-bottom:0;
+  font-family:Oswald,sans-serif;font-weight:500;text-transform:uppercase;letter-spacing:.16em;font-size:10.5px;
+}
+th.num,td.num{text-align:right;width:96px}
+td.lagnamn{min-width:190px}
+td.lagnamn .namn{font-family:Oswald,sans-serif;font-size:15px;letter-spacing:.12em;text-transform:uppercase;display:block}
+td.lagnamn .medlemmar{display:block;font-size:12.5px;line-height:1.45;color:var(--muted);margin-top:2px}
+tbody tr:last-child td{border-bottom:0}
+td input{
+  font:inherit;font-family:Oswald,sans-serif;font-size:16px;color:inherit;background:transparent;border:0;
+  width:100%;padding:2px 0;text-align:right;font-variant-numeric:tabular-nums;-moz-appearance:textfield;
+}
+td input::-webkit-outer-spin-button,td input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+td input:focus{outline:0;box-shadow:inset 0 -2px 0 var(--accent)}
+td.total{font-family:Oswald,sans-serif;font-weight:600;font-size:18px;text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+tbody tr.lead td.total{color:var(--accent)}
+.pill{
+  font-family:Oswald,sans-serif;font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+  background:var(--accent);color:var(--accent-ink);padding:3px 7px 2px;margin-left:10px;
+}
+
+/* ---------- krigsbyte ---------- */
+.forsegling{
+  background:var(--panel);color:var(--panel-ink);
+  padding:38px 20px 34px;text-align:center;
+  display:flex;flex-direction:column;align-items:center;gap:14px;
+  border:2px solid var(--accent);
+}
+.forsegling .top{font-family:Oswald,sans-serif;letter-spacing:.34em;text-transform:uppercase;font-size:11px;color:var(--accent)}
+.forsegling .name{font-family:"Saira Stencil One",Impact,sans-serif;font-size:clamp(32px,8vw,58px);line-height:1.02;letter-spacing:.01em}
+.redacted{display:inline-block;width:min(330px,74vw);height:30px;background:var(--accent)}
+.stampel{
+  border:3px solid var(--accent);color:var(--accent);
+  font-family:Oswald,sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.22em;
+  font-size:clamp(13px,3.2vw,17px);padding:7px 16px 6px;transform:rotate(-6deg);margin:4px 0 2px;
+}
+.forsegling .qty{font-family:Oswald,sans-serif;letter-spacing:.2em;text-transform:uppercase;font-size:12px;color:var(--panel-muted)}
+.forsegling .fine{font-size:14px;max-width:48ch;color:var(--panel-muted)}
+
+.ledtradar{display:flex;flex-direction:column;gap:10px;max-width:64ch}
+.ledtradar dl{margin:0;display:flex;flex-direction:column;border-bottom:1px solid var(--line)}
+.ledtradar div{display:grid;grid-template-columns:38px 1fr;gap:12px;padding:10px 0;border-top:1px solid var(--line);align-items:baseline}
+.ledtradar dt{font-family:Oswald,sans-serif;font-size:12px;letter-spacing:.16em;color:var(--accent)}
+.ledtradar dd{margin:0;font-size:15.5px;color:var(--muted)}
+
+details.kuvert{border:2px dashed var(--accent);background:var(--surface)}
+details.kuvert summary{
+  cursor:pointer;list-style:none;padding:13px 16px;
+  font-family:Oswald,sans-serif;text-transform:uppercase;letter-spacing:.16em;font-size:11.5px;color:var(--accent);
+}
+details.kuvert summary::-webkit-details-marker{display:none}
+details.kuvert summary::before{content:"⌧  "}
+details.kuvert[open] summary{border-bottom:1px solid var(--line)}
+.kuvert-inner{padding:14px 16px 18px;display:flex;flex-direction:column;gap:9px;font-size:15px;color:var(--muted)}
+.kuvert-inner b{color:var(--ink);font-weight:700}
+
+/* ---------- disciplin ---------- */
+.stadgar{background:var(--panel);color:var(--panel-ink);padding:clamp(22px,5vw,38px);display:flex;flex-direction:column;gap:24px}
+.stadgar h2{color:var(--panel-ink)}
+.stadgar .label,.stadgar .punkt span{color:var(--panel-muted)}
+.stadgar .punkt b{background:var(--accent);color:var(--accent-ink)}
+.stadgar .lead{color:var(--panel-muted)}
+.par{display:grid;grid-template-columns:54px 1fr;gap:14px;align-items:start}
+.par .sign{font-family:Oswald,sans-serif;font-weight:600;font-size:26px;line-height:1.1;color:var(--accent);letter-spacing:.04em}
+.par h3{font-family:Oswald,sans-serif;font-weight:500;text-transform:uppercase;font-size:17px;letter-spacing:.1em;color:var(--panel-ink);margin-bottom:5px}
+.par p{font-size:15.5px;color:var(--panel-muted);max-width:58ch}
+.stadgar .grupp{
+  font-family:Oswald,sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.26em;
+  font-size:11.5px;color:var(--accent);border-bottom:1px solid var(--accent);padding-bottom:7px;margin-top:8px;
+}
+.stadgar em{font-style:italic;color:var(--panel-ink)}
+.taxa{display:flex;flex-direction:column;gap:12px}
+.taxa table{background:transparent;min-width:430px;color:var(--panel-ink);border:1px solid var(--accent)}
+.taxa thead th{background:var(--accent);color:var(--accent-ink);letter-spacing:.18em}
+.taxa td{border-bottom:1px solid var(--panel-muted);font-size:14.5px;padding:8px 14px;vertical-align:top;text-align:left}
+.taxa td:nth-child(2){color:var(--accent);font-weight:700}
+.taxa td:nth-child(3){font-family:Oswald,sans-serif;letter-spacing:.1em;color:var(--panel-muted);white-space:nowrap;width:104px}
+.taxa tbody tr:last-child td{border-bottom:0}
+.taxa .swish{font-size:14.5px;color:var(--panel-muted);max-width:62ch}
+.taxa .swish b{color:var(--accent)}
+.botruta{margin:6px 0 10px;border-top:4px solid var(--accent)}
+.botruta .stripe{height:10px;background:repeating-linear-gradient(45deg,var(--accent) 0 9px,transparent 9px 18px)}
+.bot{
+  font-family:"Saira Stencil One",Impact,sans-serif;font-size:clamp(36px,9.5vw,66px);
+  line-height:1.1;color:var(--accent);font-variant-numeric:tabular-nums;margin-top:6px;
+}
+
+/* ---------- genomförande ---------- */
+.trio{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}
+.box{background:var(--surface);border:2px solid var(--ink);padding:18px;display:flex;flex-direction:column;gap:10px}
+.box .moment{font-family:Oswald,sans-serif;font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--accent)}
+.box h3{font-family:Oswald,sans-serif;font-weight:600;text-transform:uppercase;font-size:19px;letter-spacing:.1em}
+.box ul{margin:0;padding-left:17px;display:flex;flex-direction:column;gap:6px;font-size:15px;color:var(--muted)}
+.box li::marker{color:var(--accent)}
+
+footer{display:flex;flex-direction:column;gap:7px;border-top:2px solid var(--ink);padding-top:16px;font-size:14px;color:var(--muted)}
+
+@media (prefers-reduced-motion:reduce){*{transition:none !important;animation:none !important}}
+</style>
+
+<div class="stamplager" aria-hidden="true">
+  <span class="stamp" style="top:0.34%;left:0.0%;transform:rotate(19deg);font-size:28px">محرمانه</span>
+  <span class="stamp" style="top:0.99%;left:29.6%;transform:rotate(10deg);font-size:22px">Riservato</span>
+  <span class="stamp enkel" style="top:0.85%;left:55.3%;transform:rotate(20deg);font-size:13px">绝密</span>
+  <span class="stamp fyll" style="top:1.54%;left:65.0%;transform:rotate(4deg);font-size:13px">Strengt fortrolig</span>
+  <span class="stamp" style="top:2.27%;left:9.3%;transform:rotate(14deg);font-size:20px">Riservato</span>
+  <span class="stamp" style="top:2.34%;left:33.0%;transform:rotate(14deg);font-size:21px">Slepens</span>
+  <span class="stamp" style="top:2.90%;left:59.5%;transform:rotate(-4deg);font-size:20px">Top Secret</span>
+  <span class="stamp enkel" style="top:3.50%;left:11.2%;transform:rotate(-13deg);font-size:20px">Eyes Only</span>
+  <span class="stamp" style="top:3.87%;left:28.1%;transform:rotate(5deg);font-size:26px">Secret de stat</span>
+  <span class="stamp" style="top:3.97%;left:59.6%;transform:rotate(-4deg);font-size:16px">गोपनीय</span>
+  <span class="stamp fyll" style="top:4.64%;left:24.7%;transform:rotate(-5deg);font-size:17px">Confidentiel</span>
+  <span class="stamp" style="top:4.87%;left:41.0%;transform:rotate(-12deg);font-size:21px">Sigiloso</span>
+  <span class="stamp enkel" style="top:5.65%;left:2.4%;transform:rotate(20deg);font-size:36px">سري</span>
+  <span class="stamp" style="top:5.81%;left:20.1%;transform:rotate(-11deg);font-size:18px">Restricted</span>
+  <span class="stamp" style="top:6.28%;left:51.1%;transform:rotate(19deg);font-size:28px">سري</span>
+  <span class="stamp" style="top:6.98%;left:70.5%;transform:rotate(5deg);font-size:14px">Zaupno</span>
+  <span class="stamp" style="top:7.45%;left:10.6%;transform:rotate(-14deg);font-size:18px">ลับ</span>
+  <span class="stamp fyll" style="top:7.53%;left:34.4%;transform:rotate(6deg);font-size:17px">ΑΠΟΡΡΗΤΟ</span>
+  <span class="stamp" style="top:7.77%;left:65.5%;transform:rotate(-15deg);font-size:14px">Povjerljivo</span>
+  <span class="stamp" style="top:8.24%;left:10.8%;transform:rotate(4deg);font-size:15px">Tajné</span>
+  <span class="stamp" style="top:8.72%;left:32.9%;transform:rotate(-13deg);font-size:13px">Tuyệt mật</span>
+  <span class="stamp" style="top:9.50%;left:51.2%;transform:rotate(-7deg);font-size:22px">Ściśle tajne</span>
+  <span class="stamp enkel" style="top:9.57%;left:15.7%;transform:rotate(15deg);font-size:16px">Vertraulich</span>
+  <span class="stamp" style="top:10.22%;left:47.7%;transform:rotate(14deg);font-size:14px">Eyes Only</span>
+  <span class="stamp fyll" style="top:10.80%;left:6.4%;transform:rotate(-19deg);font-size:16px">기밀</span>
+  <span class="stamp" style="top:10.75%;left:29.9%;transform:rotate(-10deg);font-size:19px">Slaptai</span>
+  <span class="stamp" style="top:11.47%;left:46.5%;transform:rotate(10deg);font-size:28px">Fortrolig</span>
+  <span class="stamp enkel" style="top:11.79%;left:63.1%;transform:rotate(-7deg);font-size:17px">Secreto</span>
+  <span class="stamp" style="top:12.00%;left:19.2%;transform:rotate(16deg);font-size:21px">Confidential</span>
+  <span class="stamp" style="top:12.96%;left:38.2%;transform:rotate(-17deg);font-size:33px">ТАЄМНО</span>
+  <span class="stamp" style="top:13.25%;left:59.2%;transform:rotate(18deg);font-size:15px">Gizli</span>
+  <span class="stamp fyll" style="top:13.45%;left:3.7%;transform:rotate(11deg);font-size:15px">Secret de stat</span>
+  <span class="stamp enkel" style="top:13.97%;left:37.1%;transform:rotate(18deg);font-size:16px">Mật</span>
+  <span class="stamp" style="top:14.82%;left:54.7%;transform:rotate(-20deg);font-size:22px">Hemlig</span>
+  <span class="stamp" style="top:14.89%;left:15.2%;transform:rotate(-5deg);font-size:22px">Classified</span>
+  <span class="stamp" style="top:15.02%;left:39.3%;transform:rotate(7deg);font-size:36px">Fortrolig</span>
+  <span class="stamp" style="top:15.96%;left:0.0%;transform:rotate(-10deg);font-size:16px">Sigiloso</span>
+  <span class="stamp enkel" style="top:16.35%;left:26.3%;transform:rotate(-10deg);font-size:26px">سري</span>
+  <span class="stamp fyll" style="top:16.88%;left:49.7%;transform:rotate(-4deg);font-size:14px">Confidentiel</span>
+  <span class="stamp" style="top:17.27%;left:65.2%;transform:rotate(-18deg);font-size:17px">Confidential</span>
+  <span class="stamp" style="top:17.58%;left:10.0%;transform:rotate(12deg);font-size:22px">ΑΚΡΩΣ ΑΠΟΡΡΗΤΟ</span>
+  <span class="stamp" style="top:18.09%;left:43.5%;transform:rotate(18deg);font-size:19px">Eyes Only</span>
+  <span class="stamp enkel" style="top:18.15%;left:61.0%;transform:rotate(12deg);font-size:36px">Alto secreto</span>
+  <span class="stamp" style="top:18.80%;left:2.1%;transform:rotate(-11deg);font-size:13px">Top Secret</span>
+  <span class="stamp" style="top:18.89%;left:37.3%;transform:rotate(-5deg);font-size:18px">Rahasia</span>
+  <span class="stamp fyll" style="top:19.82%;left:57.1%;transform:rotate(20deg);font-size:15px">Salainen</span>
+  <span class="stamp" style="top:19.78%;left:14.3%;transform:rotate(11deg);font-size:18px">СОВЕРШЕННО СЕКРЕТНО</span>
+  <span class="stamp enkel" style="top:20.22%;left:49.0%;transform:rotate(-16deg);font-size:24px">Erittäin salainen</span>
+  <span class="stamp" style="top:20.68%;left:7.2%;transform:rotate(12deg);font-size:15px">Riservato</span>
+  <span class="stamp" style="top:21.30%;left:26.2%;transform:rotate(8deg);font-size:15px">Très secret</span>
+  <span class="stamp" style="top:21.53%;left:44.6%;transform:rotate(12deg);font-size:15px">Zeer geheim</span>
+  <span class="stamp" style="top:22.34%;left:72.3%;transform:rotate(8deg);font-size:16px">СОВЕРШЕННО СЕКРЕТНО</span>
+  <span class="stamp fyll" style="top:22.34%;left:17.2%;transform:rotate(-12deg);font-size:18px">Secret défense</span>
+  <span class="stamp" style="top:23.31%;left:35.2%;transform:rotate(7deg);font-size:22px">秘密</span>
+  <span class="stamp" style="top:23.26%;left:56.9%;transform:rotate(16deg);font-size:13px">Secret</span>
+  <span class="stamp" style="top:23.66%;left:7.9%;transform:rotate(-19deg);font-size:26px">Lihim</span>
+  <span class="stamp" style="top:24.20%;left:28.0%;transform:rotate(-20deg);font-size:30px">Ściśle tajne</span>
+  <span class="stamp enkel" style="top:24.76%;left:53.5%;transform:rotate(-17deg);font-size:19px">ลับ</span>
+  <span class="stamp" style="top:25.37%;left:21.3%;transform:rotate(20deg);font-size:20px">Restricted</span>
+  <span class="stamp fyll" style="top:25.85%;left:40.5%;transform:rotate(-8deg);font-size:17px">Secret défense</span>
+  <span class="stamp" style="top:25.86%;left:0.0%;transform:rotate(7deg);font-size:13px">Zeer geheim</span>
+  <span class="stamp" style="top:26.60%;left:23.1%;transform:rotate(18deg);font-size:28px">סודי</span>
+  <span class="stamp enkel" style="top:26.77%;left:44.4%;transform:rotate(-17deg);font-size:33px">绝密</span>
+  <span class="stamp" style="top:27.60%;left:71.1%;transform:rotate(12deg);font-size:24px">Geheim</span>
+  <span class="stamp" style="top:27.59%;left:11.8%;transform:rotate(9deg);font-size:24px">سري للغاية</span>
+  <span class="stamp" style="top:28.04%;left:43.5%;transform:rotate(-15deg);font-size:18px">Trúnaðarmál</span>
+  <span class="stamp fyll" style="top:28.59%;left:57.1%;transform:rotate(-16deg);font-size:28px">Top Secret</span>
+  <span class="stamp enkel" style="top:28.87%;left:13.6%;transform:rotate(-16deg);font-size:15px">Hemlig</span>
+  <span class="stamp" style="top:29.68%;left:26.9%;transform:rotate(20deg);font-size:16px">Secreto</span>
+  <span class="stamp" style="top:29.86%;left:57.9%;transform:rotate(-16deg);font-size:14px">Classified</span>
+  <span class="stamp" style="top:30.19%;left:17.0%;transform:rotate(8deg);font-size:18px">Erittäin salainen</span>
+  <span class="stamp" style="top:31.14%;left:40.9%;transform:rotate(-20deg);font-size:18px">Mật</span>
+  <span class="stamp enkel" style="top:30.98%;left:4.5%;transform:rotate(-4deg);font-size:17px">Secret</span>
+  <span class="stamp fyll" style="top:31.78%;left:30.3%;transform:rotate(-9deg);font-size:28px">Trúnaðarmál</span>
+  <span class="stamp" style="top:32.36%;left:50.7%;transform:rotate(-10deg);font-size:36px">Secret</span>
+  <span class="stamp" style="top:32.29%;left:74.0%;transform:rotate(14deg);font-size:18px">ลับมาก</span>
+  <span class="stamp" style="top:32.73%;left:14.6%;transform:rotate(20deg);font-size:36px">Segreto</span>
+  <span class="stamp enkel" style="top:33.29%;left:41.2%;transform:rotate(9deg);font-size:28px">Kvalificerat hemlig</span>
+  <span class="stamp" style="top:33.53%;left:56.8%;transform:rotate(21deg);font-size:18px">ΑΚΡΩΣ ΑΠΟΡΡΗΤΟ</span>
+  <span class="stamp" style="top:34.19%;left:5.4%;transform:rotate(6deg);font-size:22px">Streng geheim</span>
+  <span class="stamp fyll" style="top:34.59%;left:27.2%;transform:rotate(5deg);font-size:17px">Streng geheim</span>
+  <span class="stamp" style="top:35.20%;left:60.9%;transform:rotate(-5deg);font-size:20px">Geheim</span>
+  <span class="stamp enkel" style="top:35.47%;left:19.6%;transform:rotate(-4deg);font-size:16px">Strengt fortrolig</span>
+  <span class="stamp" style="top:35.88%;left:43.7%;transform:rotate(-16deg);font-size:15px">绝密</span>
+  <span class="stamp" style="top:36.35%;left:5.5%;transform:rotate(4deg);font-size:15px">Strengt fortrolig</span>
+  <span class="stamp" style="top:36.71%;left:26.6%;transform:rotate(-7deg);font-size:20px">Secreto</span>
+  <span class="stamp" style="top:37.32%;left:54.7%;transform:rotate(5deg);font-size:16px">Szigorúan titkos</span>
+  <span class="stamp fyll" style="top:37.74%;left:71.7%;transform:rotate(14deg);font-size:26px">Salajane</span>
+  <span class="stamp" style="top:38.36%;left:16.7%;transform:rotate(13deg);font-size:16px">机密</span>
+  <span class="stamp" style="top:38.36%;left:37.0%;transform:rotate(16deg);font-size:17px">Přísně tajné</span>
+  <span class="stamp" style="top:38.69%;left:59.9%;transform:rotate(8deg);font-size:33px">Zeer geheim</span>
+  <span class="stamp" style="top:39.70%;left:13.6%;transform:rotate(-10deg);font-size:18px">Lihim</span>
+  <span class="stamp enkel" style="top:39.66%;left:30.5%;transform:rotate(-16deg);font-size:15px">ЖАСЫРЫН</span>
+  <span class="stamp" style="top:40.30%;left:60.2%;transform:rotate(-3deg);font-size:36px">Gizli</span>
+  <span class="stamp fyll" style="top:40.64%;left:20.2%;transform:rotate(-11deg);font-size:28px">СТРОГО ПОВЕЉИВО</span>
+  <span class="stamp" style="top:40.93%;left:40.9%;transform:rotate(-7deg);font-size:20px">ЖАСЫРЫН</span>
+  <span class="stamp" style="top:41.74%;left:6.2%;transform:rotate(13deg);font-size:18px">Confidentiel</span>
+  <span class="stamp enkel" style="top:42.18%;left:28.8%;transform:rotate(11deg);font-size:13px">Très secret</span>
+  <span class="stamp" style="top:42.04%;left:46.5%;transform:rotate(-15deg);font-size:30px">Confidential</span>
+  <span class="stamp" style="top:42.80%;left:70.0%;transform:rotate(-18deg);font-size:16px">Slepens</span>
+  <span class="stamp" style="top:43.33%;left:19.0%;transform:rotate(17deg);font-size:22px">סודי</span>
+  <span class="stamp fyll" style="top:43.60%;left:38.1%;transform:rotate(14deg);font-size:19px">Très secret</span>
+  <span class="stamp enkel" style="top:44.42%;left:55.9%;transform:rotate(17deg);font-size:26px">대외비</span>
+  <span class="stamp" style="top:44.86%;left:2.4%;transform:rotate(-15deg);font-size:36px">Szigorúan titkos</span>
+  <span class="stamp" style="top:45.18%;left:28.7%;transform:rotate(13deg);font-size:21px">機密</span>
+  <span class="stamp" style="top:45.20%;left:53.3%;transform:rotate(15deg);font-size:36px">Confidentiel</span>
+  <span class="stamp" style="top:45.53%;left:17.3%;transform:rotate(-18deg);font-size:30px">대외비</span>
+  <span class="stamp enkel" style="top:46.08%;left:46.6%;transform:rotate(15deg);font-size:14px">Mật</span>
+  <span class="stamp fyll" style="top:46.62%;left:3.2%;transform:rotate(13deg);font-size:13px">Titkos</span>
+  <span class="stamp" style="top:46.92%;left:31.0%;transform:rotate(4deg);font-size:15px">Hemlig</span>
+  <span class="stamp" style="top:47.50%;left:51.1%;transform:rotate(-10deg);font-size:19px">Tajné</span>
+  <span class="stamp" style="top:47.74%;left:63.2%;transform:rotate(16deg);font-size:18px">기밀</span>
+  <span class="stamp enkel" style="top:48.38%;left:10.4%;transform:rotate(9deg);font-size:13px">ลับมาก</span>
+  <span class="stamp" style="top:49.02%;left:41.8%;transform:rotate(7deg);font-size:22px">ТАЄМНО</span>
+  <span class="stamp" style="top:49.34%;left:60.8%;transform:rotate(-19deg);font-size:13px">Slaptai</span>
+  <span class="stamp fyll" style="top:49.97%;left:13.7%;transform:rotate(14deg);font-size:15px">Alto secreto</span>
+  <span class="stamp" style="top:49.92%;left:35.1%;transform:rotate(11deg);font-size:16px">Très secret</span>
+  <span class="stamp enkel" style="top:50.24%;left:51.2%;transform:rotate(-21deg);font-size:28px">СТРОГО ПОВЕЉИВО</span>
+  <span class="stamp" style="top:50.75%;left:17.4%;transform:rotate(-14deg);font-size:36px">Salajane</span>
+  <span class="stamp" style="top:51.18%;left:45.3%;transform:rotate(7deg);font-size:16px">Segreto</span>
+  <span class="stamp" style="top:51.50%;left:0.0%;transform:rotate(-4deg);font-size:14px">Přísně tajné</span>
+  <span class="stamp" style="top:52.44%;left:22.4%;transform:rotate(4deg);font-size:30px">Confidencial</span>
+  <span class="stamp fyll" style="top:52.63%;left:53.9%;transform:rotate(-4deg);font-size:18px">Sulit</span>
+  <span class="stamp" style="top:53.42%;left:66.1%;transform:rotate(-4deg);font-size:16px">Salainen</span>
+  <span class="stamp" style="top:53.56%;left:10.0%;transform:rotate(19deg);font-size:15px">गोपनीय</span>
+  <span class="stamp" style="top:53.74%;left:39.0%;transform:rotate(-20deg);font-size:24px">ТАЄМНО</span>
+  <span class="stamp" style="top:54.34%;left:62.4%;transform:rotate(-10deg);font-size:24px">Trúnaðarmál</span>
+  <span class="stamp enkel" style="top:54.60%;left:4.9%;transform:rotate(-15deg);font-size:13px">अति गोपनीय</span>
+  <span class="stamp" style="top:55.58%;left:37.0%;transform:rotate(15deg);font-size:19px">Titkos</span>
+  <span class="stamp fyll" style="top:55.49%;left:50.6%;transform:rotate(8deg);font-size:24px">Fortrolig</span>
+  <span class="stamp" style="top:55.99%;left:16.4%;transform:rotate(15deg);font-size:26px">Kvalificerat hemlig</span>
+  <span class="stamp" style="top:56.36%;left:44.6%;transform:rotate(-21deg);font-size:36px">סודי</span>
+  <span class="stamp enkel" style="top:57.02%;left:3.8%;transform:rotate(-11deg);font-size:15px">秘密</span>
+  <span class="stamp" style="top:57.60%;left:21.6%;transform:rotate(-9deg);font-size:26px">Sulit</span>
+  <span class="stamp" style="top:57.51%;left:55.3%;transform:rotate(-10deg);font-size:18px">Povjerljivo</span>
+  <span class="stamp" style="top:58.56%;left:67.3%;transform:rotate(-14deg);font-size:17px">極秘</span>
+  <span class="stamp fyll" style="top:58.77%;left:8.0%;transform:rotate(12deg);font-size:20px">Salainen</span>
+  <span class="stamp enkel" style="top:59.05%;left:39.4%;transform:rotate(10deg);font-size:15px">Tajne</span>
+  <span class="stamp" style="top:59.73%;left:60.2%;transform:rotate(-19deg);font-size:14px">Lihim</span>
+  <span class="stamp" style="top:60.34%;left:4.3%;transform:rotate(-17deg);font-size:28px">Sigiloso</span>
+  <span class="stamp" style="top:60.72%;left:31.6%;transform:rotate(11deg);font-size:15px">Confidencial</span>
+  <span class="stamp" style="top:60.75%;left:60.9%;transform:rotate(-12deg);font-size:19px">СТРОГО ПОВЕЉИВО</span>
+  <span class="stamp enkel" style="top:61.13%;left:19.3%;transform:rotate(-16deg);font-size:18px">Secret défense</span>
+  <span class="stamp fyll" style="top:61.42%;left:39.7%;transform:rotate(-19deg);font-size:19px">СОВЕРШЕННО СЕКРЕТНО</span>
+  <span class="stamp" style="top:62.02%;left:6.6%;transform:rotate(-14deg);font-size:30px">Secreto</span>
+  <span class="stamp" style="top:62.45%;left:22.0%;transform:rotate(-9deg);font-size:30px">ΑΠΟΡΡΗΤΟ</span>
+  <span class="stamp" style="top:63.11%;left:45.7%;transform:rotate(19deg);font-size:36px">Szigorúan titkos</span>
+  <span class="stamp enkel" style="top:63.14%;left:70.2%;transform:rotate(15deg);font-size:36px">Alto secreto</span>
+  <span class="stamp" style="top:64.02%;left:16.4%;transform:rotate(-9deg);font-size:20px">СЕКРЕТНО</span>
+  <span class="stamp" style="top:64.22%;left:43.2%;transform:rotate(11deg);font-size:18px">Vertraulich</span>
+  <span class="stamp fyll" style="top:64.38%;left:56.4%;transform:rotate(-21deg);font-size:18px">Alto secreto</span>
+  <span class="stamp" style="top:65.28%;left:2.5%;transform:rotate(7deg);font-size:16px">機密</span>
+  <span class="stamp enkel" style="top:65.49%;left:27.8%;transform:rotate(-7deg);font-size:30px">СЕКРЕТНО</span>
+  <span class="stamp" style="top:66.05%;left:54.6%;transform:rotate(-3deg);font-size:13px">Zaupno</span>
+  <span class="stamp" style="top:66.10%;left:25.3%;transform:rotate(14deg);font-size:18px">Riservato</span>
+  <span class="stamp" style="top:66.68%;left:43.3%;transform:rotate(15deg);font-size:19px">Eyes Only</span>
+  <span class="stamp" style="top:66.96%;left:0.0%;transform:rotate(-19deg);font-size:14px">Segreto</span>
+  <span class="stamp fyll" style="top:67.54%;left:22.8%;transform:rotate(17deg);font-size:36px">Secret de stat</span>
+  <span class="stamp" style="top:68.06%;left:50.4%;transform:rotate(-15deg);font-size:36px">Confidencial</span>
+  <span class="stamp" style="top:68.74%;left:63.2%;transform:rotate(-3deg);font-size:14px">Sangat rahasia</span>
+  <span class="stamp" style="top:68.81%;left:16.6%;transform:rotate(-6deg);font-size:28px">Classified</span>
+  <span class="stamp" style="top:69.57%;left:37.7%;transform:rotate(-6deg);font-size:28px">गोपनीय</span>
+  <span class="stamp enkel" style="top:69.73%;left:59.0%;transform:rotate(18deg);font-size:14px">Confidential</span>
+  <span class="stamp" style="top:70.22%;left:4.5%;transform:rotate(-20deg);font-size:24px">Geheim</span>
+  <span class="stamp fyll" style="top:70.78%;left:36.1%;transform:rotate(13deg);font-size:18px">Tajné</span>
+  <span class="stamp" style="top:71.37%;left:56.6%;transform:rotate(-11deg);font-size:21px">Tajne</span>
+  <span class="stamp" style="top:71.27%;left:18.2%;transform:rotate(-18deg);font-size:18px">Vertraulich</span>
+  <span class="stamp enkel" style="top:71.70%;left:43.4%;transform:rotate(-8deg);font-size:14px">Streng geheim</span>
+  <span class="stamp" style="top:72.67%;left:2.7%;transform:rotate(10deg);font-size:30px">Salajane</span>
+  <span class="stamp" style="top:73.04%;left:31.0%;transform:rotate(-21deg);font-size:15px">ΑΠΟΡΡΗΤΟ</span>
+  <span class="stamp" style="top:72.98%;left:50.6%;transform:rotate(-20deg);font-size:15px">Hemlig</span>
+  <span class="stamp fyll" style="top:74.05%;left:70.4%;transform:rotate(-10deg);font-size:15px">Slepens</span>
+  <span class="stamp enkel" style="top:74.37%;left:11.6%;transform:rotate(-19deg);font-size:13px">ΑΚΡΩΣ ΑΠΟΡΡΗΤΟ</span>
+  <span class="stamp" style="top:74.79%;left:39.8%;transform:rotate(19deg);font-size:15px">Çok gizli</span>
+  <span class="stamp" style="top:74.89%;left:55.8%;transform:rotate(-10deg);font-size:15px">Kvalificerat hemlig</span>
+  <span class="stamp" style="top:75.27%;left:2.1%;transform:rotate(5deg);font-size:14px">機密</span>
+  <span class="stamp" style="top:76.07%;left:32.6%;transform:rotate(10deg);font-size:17px">Titkos</span>
+  <span class="stamp enkel" style="top:76.46%;left:52.5%;transform:rotate(-19deg);font-size:18px">Kvalificerat hemlig</span>
+  <span class="stamp fyll" style="top:76.90%;left:21.2%;transform:rotate(-15deg);font-size:20px">Classified</span>
+  <span class="stamp" style="top:77.06%;left:42.3%;transform:rotate(17deg);font-size:19px">기밀</span>
+  <span class="stamp" style="top:77.35%;left:8.0%;transform:rotate(-6deg);font-size:14px">Streng geheim</span>
+  <span class="stamp" style="top:78.17%;left:23.8%;transform:rotate(14deg);font-size:21px">ЖАСЫРЫН</span>
+  <span class="stamp enkel" style="top:78.38%;left:54.7%;transform:rotate(16deg);font-size:15px">Salainen</span>
+  <span class="stamp" style="top:78.69%;left:63.0%;transform:rotate(8deg);font-size:26px">Sulit</span>
+  <span class="stamp" style="top:79.49%;left:14.7%;transform:rotate(-12deg);font-size:28px">סודי ביותר</span>
+  <span class="stamp fyll" style="top:79.96%;left:32.3%;transform:rotate(-6deg);font-size:18px">Zaupno</span>
+  <span class="stamp" style="top:80.30%;left:61.8%;transform:rotate(10deg);font-size:15px">Ściśle tajne</span>
+  <span class="stamp enkel" style="top:80.35%;left:2.7%;transform:rotate(-19deg);font-size:19px">Geheim</span>
+  <span class="stamp" style="top:81.34%;left:34.8%;transform:rotate(-14deg);font-size:15px">Segreto</span>
+  <span class="stamp" style="top:81.53%;left:54.3%;transform:rotate(15deg);font-size:13px">Restricted</span>
+  <span class="stamp" style="top:81.79%;left:21.2%;transform:rotate(-16deg);font-size:33px">ลับ</span>
+  <span class="stamp" style="top:82.58%;left:38.6%;transform:rotate(11deg);font-size:20px">Secret défense</span>
+  <span class="stamp fyll" style="top:82.76%;left:0.0%;transform:rotate(19deg);font-size:26px">Restricted</span>
+  <span class="stamp" style="top:83.39%;left:29.7%;transform:rotate(-5deg);font-size:26px">محرمانه</span>
+  <span class="stamp" style="top:83.88%;left:53.5%;transform:rotate(14deg);font-size:21px">Secret</span>
+  <span class="stamp" style="top:83.92%;left:62.1%;transform:rotate(-4deg);font-size:36px">סודי ביותר</span>
+  <span class="stamp" style="top:84.66%;left:11.5%;transform:rotate(-6deg);font-size:36px">Çok gizli</span>
+  <span class="stamp enkel" style="top:84.93%;left:34.3%;transform:rotate(-13deg);font-size:18px">Sangat rahasia</span>
+  <span class="stamp" style="top:85.66%;left:62.9%;transform:rotate(7deg);font-size:17px">Povjerljivo</span>
+  <span class="stamp fyll" style="top:85.80%;left:5.6%;transform:rotate(-7deg);font-size:26px">Přísně tajné</span>
+  <span class="stamp" style="top:86.48%;left:29.3%;transform:rotate(-3deg);font-size:20px">ลับมาก</span>
+  <span class="stamp" style="top:86.49%;left:60.7%;transform:rotate(-9deg);font-size:26px">Slaptai</span>
+  <span class="stamp enkel" style="top:86.78%;left:18.6%;transform:rotate(8deg);font-size:15px">СЕКРЕТНО</span>
+  <span class="stamp" style="top:87.77%;left:46.2%;transform:rotate(9deg);font-size:14px">Tajne</span>
+  <span class="stamp" style="top:88.21%;left:0.0%;transform:rotate(19deg);font-size:15px">秘密</span>
+  <span class="stamp" style="top:88.62%;left:22.0%;transform:rotate(-8deg);font-size:16px">Erittäin salainen</span>
+  <span class="stamp fyll" style="top:88.93%;left:53.5%;transform:rotate(-19deg);font-size:26px">Fortrolig</span>
+  <span class="stamp enkel" style="top:89.31%;left:66.2%;transform:rotate(7deg);font-size:17px">سري للغاية</span>
+  <span class="stamp" style="top:89.89%;left:12.4%;transform:rotate(8deg);font-size:15px">Strengt fortrolig</span>
+  <span class="stamp" style="top:90.30%;left:33.9%;transform:rotate(-8deg);font-size:15px">अति गोपनीय</span>
+  <span class="stamp" style="top:90.47%;left:59.1%;transform:rotate(-19deg);font-size:24px">अति गोपनीय</span>
+  <span class="stamp" style="top:90.82%;left:6.6%;transform:rotate(4deg);font-size:21px">極秘</span>
+  <span class="stamp enkel" style="top:91.14%;left:33.6%;transform:rotate(6deg);font-size:14px">Sangat rahasia</span>
+  <span class="stamp fyll" style="top:91.61%;left:61.5%;transform:rotate(11deg);font-size:33px">سري للغاية</span>
+  <span class="stamp" style="top:92.22%;left:18.0%;transform:rotate(11deg);font-size:33px">Rahasia</span>
+  <span class="stamp" style="top:92.85%;left:47.5%;transform:rotate(19deg);font-size:24px">机密</span>
+  <span class="stamp" style="top:93.09%;left:7.9%;transform:rotate(9deg);font-size:26px">Top Secret</span>
+  <span class="stamp enkel" style="top:93.28%;left:26.0%;transform:rotate(-18deg);font-size:26px">Confidencial</span>
+  <span class="stamp" style="top:93.60%;left:49.4%;transform:rotate(10deg);font-size:33px">Vertraulich</span>
+  <span class="stamp" style="top:94.12%;left:68.7%;transform:rotate(-9deg);font-size:15px">Çok gizli</span>
+  <span class="stamp fyll" style="top:94.55%;left:12.9%;transform:rotate(14deg);font-size:30px">대외비</span>
+  <span class="stamp" style="top:94.99%;left:40.1%;transform:rotate(14deg);font-size:26px">Tuyệt mật</span>
+  <span class="stamp enkel" style="top:95.92%;left:60.8%;transform:rotate(-5deg);font-size:36px">Zeer geheim</span>
+  <span class="stamp" style="top:95.87%;left:12.9%;transform:rotate(-19deg);font-size:26px">Rahasia</span>
+  <span class="stamp" style="top:96.36%;left:36.4%;transform:rotate(4deg);font-size:26px">Gizli</span>
+  <span class="stamp" style="top:97.07%;left:50.9%;transform:rotate(-19deg);font-size:18px">机密</span>
+  <span class="stamp" style="top:97.22%;left:20.7%;transform:rotate(17deg);font-size:18px">Tuyệt mật</span>
+  <span class="stamp fyll" style="top:97.95%;left:42.4%;transform:rotate(-4deg);font-size:24px">סודי ביותר</span>
+  <span class="stamp" style="top:97.98%;left:3.1%;transform:rotate(17deg);font-size:20px">محرمانه</span>
+  <span class="stamp" style="top:98.66%;left:26.0%;transform:rotate(6deg);font-size:16px">極秘</span>
+  <span class="stamp" style="top:98.81%;left:50.5%;transform:rotate(-9deg);font-size:13px">Erittäin salainen</span>
+</div>
+
+<div class="page">
+
+  <div class="remsa">
+    <span>Order nr 1 · Sällskapet</span>
+    <span class="hot">Hemlig · Endast för tilldelade</span>
+  </div>
+  <div class="chevron"></div>
+  <div class="varning">
+    <b>Varning</b>
+    <span>Uteblivet anträdande = <b>1 500 SEK i böter</b> — swishas omedelbart till Överbefälhavare <span class="ob">Andreas Sturesson</span></span>
+  </div>
+
+  <header class="order">
+    <p class="label">Order till samtliga · Delges omgående</p>
+    <h1><span class="op">Operation</span>Svart Duk</h1>
+    <p class="sub">Tre skov, tre grupper, tre moment. <b>Närvaro är obligatorisk.</b> Den som uteblir bötfälls med <b>1 500 SEK</b> och skiljs från förbandet för gott. Ordern gäller från utfärdandet, den kan inte omförhandlas och den kan inte överklagas.</p>
+    <div class="orderruta">
+      <p class="rubrik"><span>Tid · Plats · Mundering</span><span>Bilaga A</span></p>
+      <div class="rutor">
+        <div class="ruta"><span class="label">Datum</span><b class="stark">Lör 12 sep</b></div>
+        <div class="ruta"><span class="label">Anträdande</span><b>17.00</b></div>
+        <div class="ruta"><span class="label">Förläggning</span><b>Täljstensgatan 19</b></div>
+        <div class="ruta"><span class="label">Mundering</span><b>M/Valfri</b><small>Egen mundering, fritt val. Inga föreskrifter utfärdas.</small></div>
+      </div>
+      <div class="losen">
+        <span class="label">Lösen</span>
+        <b>Svart Duk</b>
+        <span>Anges vid grinden. <b>Den som inte kan lösen avvisas och släpps aldrig in igen.</b> Ingen prövning, ingen andra chans, böter enligt §2.</span>
+      </div>
+      <div class="losen boter">
+        <span class="label">Böter</span>
+        <b>1 500 SEK</b>
+        <span>Utgår vid uteblivet anträdande. Swishas omedelbart till Överbefälhavare <span class="ob">Andreas Sturesson</span>. Se punkt 9, §2.</span>
+      </div>
+    </div>
+  </header>
+
+  <section class="sec">
+    <header>
+      <p class="punkt"><b>Punkt 1</b><span>Tidsplan</span></p>
+      <h2>Operationens förlopp</h2>
+      <p class="lead">Tiderna är order, inte förslag. Grupperingen fastställs före första skovet och gäller operationen ut.</p>
+    </header>
+    <div class="ordning">
+      <div class="slot"><time>17.00</time><div><strong>Anträdande</strong><p>Förbandet samlas. Öl utdelas omgående. Telefoner nedsläckta.</p></div></div>
+      <div class="slot"><time>17.30</time><div><strong>Gruppering</strong><p>Lottning inför skärm. Byte av grupp medges ej, oavsett skäl.</p></div></div>
+      <div class="slot"><time>17.45</time><div><strong>Första skovet</strong><p>Samtliga intar plats. Befälets tal hålls kort, av tradition.</p></div></div>
+      <div class="slot"><time>18.30</time><div><strong>Andra skovet</strong><p>Vin utskänks. Bordsplaceringen är fastställd i förväg.</p></div></div>
+      <div class="slot"><time>19.30</time><div><strong>Moment 1 · Hitster</strong><p>Högtalaren aktiveras. Grupperna framrycker turvis, ett kort i taget.</p></div></div>
+      <div class="slot"><time>20.30</time><div><strong>Tredje skovet</strong><p>Whiskyn framställs på bordet och förblir där till operationens slut.</p></div></div>
+      <div class="slot"><time>21.00</time><div><strong>Moment 2 · Lappleken</strong><p>Skålen töms tre gånger. Svårighetsgraden trappas upp för varje rond.</p></div></div>
+      <div class="slot"><time>21.45</time><div><strong>Moment 3 · Quiz</strong><p>Fem ronder. Den sista avgör hela operationen.</p></div></div>
+      <div class="slot"><time>22.30</time><div><strong>Prisutdelning</strong><p>Förseglingen bryts. Utomhus, i vindriktning, aldrig vid bordet.</p></div></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <header>
+      <p class="punkt"><b>Punkt 2</b><span>Förplägnad</span></p>
+      <h2>Utspisning i tre skov</h2>
+      <p class="lead">En tilldelad dryck per skov. Öl till det första, vin till det andra, whisky till det tredje. Egen medhavd förtäring anmäls till befälet.</p>
+    </header>
+    <div class="meny">
+      <article class="ratt">
+        <p class="label">Första skovet</p>
+        <h3>Toast Skagen</h3>
+        <p class="desc">Handskalade räkor, dill och rom på rostat bröd. Serveras kall. Intas i rask takt.</p>
+        <div class="pour"><span class="chip">Öl</span><span class="dryck">Ljus lager, välkyld</span></div>
+      </article>
+      <article class="ratt">
+        <p class="label">Andra skovet</p>
+        <h3>Gulasch</h3>
+        <p class="desc">Långkokt oxbog med paprika, lök och kummin. Potatismos och surdegsbröd till såsen. Portionen är tilltagen.</p>
+        <div class="pour"><span class="chip">Vin</span><span class="dryck">Casillero del Diablo</span></div>
+      </article>
+      <article class="ratt">
+        <p class="label">Tredje skovet</p>
+        <h3>Chokladfondant</h3>
+        <p class="desc">Flytande kärna och vaniljglass. Därefter ostbricka för den som fortfarande är stridsduglig. Whiskyn utskänks i tilldelad mängd och därefter i otilldelad.</p>
+        <div class="pour"><span class="chip">Whisky</span><span class="dryck">King Robert blended</span></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="sec">
+    <header>
+      <p class="punkt"><b>Punkt 3</b><span>Styrka</span></p>
+      <h2>Personalredovisning</h2>
+      <p class="lead">Nio man anmälda, nio man förväntade. Varje man som saknas vid uppställning bötfälls med <b>1 500 SEK</b>, swishade omgående till Överbefälhavare <span class="ob">Andreas Sturesson</span>. Se punkt 9, §2.</p>
+    </header>
+    <ul class="styrka">
+      <li>Johan Henrysson</li>
+      <li>Johan Lindblom</li>
+      <li>Elias Vendelstrand</li>
+      <li>Erik Henrysson</li>
+      <li><span class="ob">Andreas Sturesson</span> <em>Överbefälhavare</em></li>
+      <li>William Andersson</li>
+      <li>Alexander Van Geijt</li>
+      <li>Per Arvidsson</li>
+      <li>Albin Johansson</li>
+    </ul>
+  </section>
+
+  <section class="sec">
+    <header>
+      <p class="punkt"><b>Punkt 4</b><span>Befälsförhållanden</span></p>
+      <h2>Ledning och lydnad</h2>
+      <p class="lead">Förbandet förs av en man. Order går nedåt, rapport går uppåt. Diskussion förekommer inte.</p>
+    </header>
+    <div class="befal">
+      <div class="niva hog">
+        <span class="grad">Överbefälhavare</span>
+        <b class="ob">Andreas Sturesson</b>
+        <span class="roll">För befälet över hela operationen. Beslutar om tider, placering, portioner, poäng, påföljder och undantag. Beviljar inga undantag. Mottar samtliga böter via Swish, omedelbart. Hans beslut är slutgiltiga, gäller retroaktivt och kan när som helst ändras av honom själv.</span>
+      </div>
+      <p class="pil">▼ Order nedåt</p>
+      <div class="niva">
+        <span class="grad">Gruppchefer</span>
+        <b>Utses på plats av Överbefälhavaren</b>
+        <span class="roll">Ansvarar för sin grupps uppträdande, för att stridsvärdet rapporteras efter varje moment och för att ingen i gruppen avviker före 22.30.</span>
+      </div>
+      <p class="pil">▼ Order nedåt</p>
+      <div class="niva">
+        <span class="grad">Övriga</span>
+        <b>Åtta man</b>
+        <span class="roll">Lyder. Verkställer. Skålar när tillstånd ges. Rapporterar uppåt, aldrig utåt.</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <header>
+      <p class="punkt"><b>Punkt 5</b><span>Gruppering</span></p>
+      <h2>Indelning av styrkan</h2>
+      <p class="lead">Verkställ lottningen på skärm inför samtliga. Utfallet är slutgiltigt. Klagomål riktas till slumpen. Överbefälhavare <span class="ob">Andreas Sturesson</span> lottas som var man, men för befälet i den grupp han hamnar i — och över de övriga.</p>
+    </header>
+    <div class="tools">
+      <button type="button" class="primary" id="lotta">Verkställ lottning</button>
+      <label for="antal" class="label">Antal grupper</label>
+      <select id="antal" aria-label="Antal grupper">
+        <option value="2">2 grupper</option>
+        <option value="3" selected>3 grupper</option>
+        <option value="4">4 grupper</option>
+      </select>
+      <span class="note">Gruppnamn skrivs över direkt i korten. Ny lottning nollställer stridsvärdet.</span>
+    </div>
+    <div class="lagkort" id="lagkort"></div>
+  </section>
+
+  <section class="sec">
+    <header>
+      <p class="punkt"><b>Punkt 6</b><span>Genomförande</span></p>
+      <h2>Tre moment</h2>
+      <p class="lead">Samma gruppering genom hela operationen. Poäng rapporteras till protokollet efter varje moment.</p>
+    </header>
+    <div class="trio">
+      <div class="box">
+        <p class="moment">Moment 1</p>
+        <h3>Hitster</h3>
+        <ul>
+          <li>Dra ett kort, skanna koden, lyssna.</li>
+          <li>Placera låten rätt i gruppens tidslinje — före, mellan eller efter.</li>
+          <li>Rätt placering ger kortet. Fel placering överlämnar initiativet till nästa grupp.</li>
+          <li>Tio kort i tidslinjen avgör momentet.</li>
+        </ul>
+      </div>
+      <div class="box">
+        <p class="moment">Moment 2</p>
+        <h3>Lappleken</h3>
+        <ul>
+          <li>Var man skriver fem namn eller begrepp på varsin lapp i skålen.</li>
+          <li>Rond 1: förklara fritt. Rond 2: ett enda ord. Rond 3: mima.</li>
+          <li>Samma lappar alla tre ronderna, 60 sekunder per omgång.</li>
+          <li>Varje gissad lapp är ett poäng till gruppen.</li>
+        </ul>
+      </div>
+      <div class="box">
+        <p class="moment">Moment 3</p>
+        <h3>Quiz</h3>
+        <ul>
+          <li>Fem ronder: historia, musik, sport, mat och dryck, samt en rond om förbandet självt.</li>
+          <li>Sex frågor per rond, ett poäng styck.</li>
+          <li>Sista ronden ger dubbla poäng. Inget slås upp, inget googlas.</li>
+          <li>Quizmastern har alltid rätt, även när hen inte har det.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <header>
+      <p class="punkt"><b>Punkt 7</b><span>Lägesrapport</span></p>
+      <h2>Stridsvärde</h2>
+      <p class="lead">Rapportera in efter varje moment. Ledande grupp markeras. Siffrorna sparas i den här webbläsaren.</p>
+    </header>
+    <div class="tablewrap">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">Grupp</th>
+            <th scope="col" class="num">Hitster</th>
+            <th scope="col" class="num">Lappleken</th>
+            <th scope="col" class="num">Quiz</th>
+            <th scope="col" class="num">Totalt</th>
+          </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+    <div class="tools">
+      <button type="button" id="nollstall">Nollställ stridsvärdet</button>
+      <span class="note">Grupperna hämtas från lottningen i punkt 5.</span>
+    </div>
+  </section>
+
+  <section class="sec">
+    <header>
+      <p class="punkt"><b>Punkt 8</b><span>Krigsbyte</span></p>
+      <h2>Belöning</h2>
+      <p class="lead">Bytet är anskaffat, förseglat och undanställt. Befälet är den ende som känner till innehållet.</p>
+    </header>
+    <div class="forsegling">
+      <p class="top">Förseglat · Får ej brytas</p>
+      <p class="name">Krigsbytet</p>
+      <span class="redacted" role="img" aria-label="Överstruket — innehållet är hemligt"></span>
+      <span class="stampel">Hemligstämplat</span>
+      <p class="qty">Ett (1) exemplar · Tilldelas segrande grupp</p>
+      <p class="fine">Överlämnas 22.30. Ingen kvittering krävs, ingen retur medges, inga frågor besvaras dessförinnan.</p>
+    </div>
+    <div class="ledtradar">
+      <p class="label">Tillåtna ledtrådar</p>
+      <dl>
+        <div><dt>I.</dt><dd>Det är svenskt och har funnits längre än någon av oss.</dd></div>
+        <div><dt>II.</dt><dd>Det bryts utomhus, i vindriktning. Aldrig inomhus, aldrig vid bordet.</dd></div>
+        <div><dt>III.</dt><dd>Segern känns i flera dagar, på ett eller annat sätt.</dd></div>
+      </dl>
+      <p class="note">Fler ledtrådar utges inte. Gissningar noteras men bekräftas aldrig.</p>
+    </div>
+    <details class="kuvert">
+      <summary>Förseglat kuvert — bryts av segrarna efter prisutdelningen</summary>
+      <div class="kuvert-inner">
+        <p><b>Grattis. Ni har vunnit en burk surströmming.</b></p>
+        <p><b>Öppning:</b> utomhus, helst under vatten i en hink, på armlängds avstånd och med medvind. Burken är buktig av en anledning.</p>
+        <p><b>Till burken hör:</b> tunnbröd, mandelpotatis, rödlök, gräddfil och snaps. Premiären infaller tredje torsdagen i augusti — ni avgör själva om ni vill invänta den.</p>
+      </div>
+    </details>
+  </section>
+
+  <section class="sec stadgar">
+    <header>
+      <p class="punkt"><b>Punkt 9</b><span>Disciplin</span></p>
+      <h2>Stadgar och påföljder</h2>
+      <p class="lead">Nitton paragrafer, antagna av Överbefälhavare <span class="ob">Andreas Sturesson</span> utan omröstning och utan invändningar. Okunskap om stadgarna befriar ingen från ansvar.</p>
+    </header>
+
+    <p class="grupp">A &middot; Närvaro och påföljd</p>
+    <div class="par">
+      <span class="sign">&sect;1</span>
+      <div>
+        <h3>Närvaroplikt</h3>
+        <p>Den som anmält sig anträder. Arbete, förkylning, familj och andra middagar utgör inte giltigt förfall. Endast Överbefälhavaren kan bevilja förfall. Överbefälhavaren beviljar inte förfall.</p>
+      </div>
+    </div>
+    <div class="par">
+      <span class="sign">&sect;2</span>
+      <div>
+        <h3>Böter vid uteblivet anträdande</h3>
+        <div class="botruta"><div class="stripe"></div></div>
+        <p class="bot">1 500 SEK</p>
+        <p><b>Per man och tillfälle.</b> Samtliga straffböter swishas omedelbart till Överbefälhavare <span class="ob">Andreas Sturesson</span> &mdash; inte i efterhand, inte i delbetalningar, inte i natura. Beloppet tillfaller nästa operation, den som den bötfällde inte deltar i.</p>
+      </div>
+    </div>
+    <div class="par">
+      <span class="sign">&sect;3</span>
+      <div>
+        <h3>Avsked på livstid</h3>
+        <p>Den som uteblir skiljs från förbandet för gott, oavsett hur goda vänner vi är. Stadgan saknar undantag och kan inte överklagas.</p>
+      </div>
+    </div>
+    <div class="par">
+      <span class="sign">&sect;4</span>
+      <div>
+        <h3>Lösen vid grinden</h3>
+        <p>Lösen är <b>Svart Duk</b> och anges vid ankomst. Den som inte kan lösen avvisas på platsen och släpps aldrig in igen &mdash; varken denna operation eller någon kommande. Ingen prövning, ingen andra chans. Avvisning likställs med uteblivet anträdande och böter utgår enligt &sect;2.</p>
+      </div>
+    </div>
+
+    <p class="grupp">B &middot; Befälsförhållanden</p>
+    <div class="par">
+      <span class="sign">&sect;5</span>
+      <div>
+        <h3>Befälsrätt</h3>
+        <p>Överbefälhavare <span class="ob">Andreas Sturesson</span> för befälet. Hans order verkställs omedelbart och ifrågasätts inte. Den som ifrågasätter en order har redan brutit mot den.</p>
+      </div>
+    </div>
+    <div class="par">
+      <span class="sign">&sect;6</span>
+      <div>
+        <h3>Överbefälhavarens beslut</h3>
+        <p>Beslut fattade av <span class="ob">Andreas Sturesson</span> är slutgiltiga, träder i kraft omedelbart, gäller retroaktivt och kan när som helst ändras av honom själv utan att de därmed varit felaktiga.</p>
+      </div>
+    </div>
+    <div class="par">
+      <span class="sign">&sect;7</span>
+      <div>
+        <h3>Tilltal</h3>
+        <p>Överbefälhavaren tilltalas <em>Överbefälhavaren</em>. Förnamn medges först efter tredje skovet och kan återkallas.</p>
+      </div>
+    </div>
+    <div class="par">
+      <span class="sign">&sect;8</span>
+      <div>
+        <h3>Tystnad på order</h3>
+        <p>När <span class="ob">Andreas Sturesson</span> reser sig tiger förbandet. Den som talar vidare får stå upp under resten av skovet.</p>
+      </div>
+    </div>
+
+    <p class="grupp">C &middot; Uppträdande i förläggningen</p>
+    <div class="par">
+      <span class="sign">&sect;9</span>
+      <div>
+        <h3>Punktlighet</h3>
+        <p>Anträdande 17.00. Varje påbörjad kvart efter utsatt tid kostar 100 SEK, swishas på plats. Efter 18.00 räknas man som utebliven och &sect;2 tillämpas i sin helhet.</p>
+      </div>
+    </div>
+    <div class="par">
+      <span class="sign">&sect;10</span>
+      <div>
+        <h3>Sambandsförbud</h3>
+        <p>Telefoner läggs i lådan vid ankomst. Bruk under pågående moment kostar 200 SEK. Fotografering av krigsbytet är förbjuden under alla omständigheter.</p>
+      </div>
+    </div>
+    <div class="par">
+      <span class="sign">&sect;11</span>
+      <div>
+        <h3>Bordsplacering</h3>
+        <p>Placeringen är fastställd i förväg av Överbefälhavaren. Byte medges ej. Den som byter plats byter också grupp, till den grupp som ligger sist.</p>
+      </div>
+    </div>
+    <div class="par">
+      <span class="sign">&sect;12</span>
+      <div>
+        <h3>Skålordning</h3>
+        <p>Ingen skålar före Överbefälhavaren. Skål besvaras med ögonkontakt och nick &mdash; aldrig med telefon i handen, aldrig sittande om befälet står.</p>
+      </div>
+    </div>
+    <div class="par">
+      <span class="sign">&sect;13</span>
+      <div>
+        <h3>Talordning</h3>
+        <p>Tal hålls stående och varar högst tre minuter. <span class="ob">Andreas Sturesson</span> avbryter utan förvarning och behöver inte ange skäl.</p>
+      </div>
+    </div>
+    <div class="par">
+      <span class="sign">&sect;14</span>
+      <div>
+        <h3>Mundering m/valfri</h3>
+        <p>Fritt val av mundering. Kommentarer om annans mundering är förbjudna. Undantag görs för Överbefälhavaren, som får kommentera samtligas.</p>
+      </div>
+    </div>
+
+    <p class="grupp">D &middot; Genomförande och avtåg</p>
+    <div class="par">
+      <span class="sign">&sect;15</span>
+      <div>
+        <h3>Utspisningsplikt</h3>
+        <p>Det som utspisas intas. Tilldelad dryck till tilldelat skov. Byte av dryck mellan skoven anmäls till befälet och avslås.</p>
+      </div>
+    </div>
+    <div class="par">
+      <span class="sign">&sect;16</span>
+      <div>
+        <h3>Domsrätt</h3>
+        <p>Quizmasterns domslut är slutgiltiga även när de är fel. Överklagan kostar 100 SEK, behandlas av Överbefälhavaren och avslås.</p>
+      </div>
+    </div>
+    <div class="par">
+      <span class="sign">&sect;17</span>
+      <div>
+        <h3>Avtågsförbud</h3>
+        <p>Ingen lämnar förbandet före prisutdelningen 22.30 utan Överbefälhavarens uttryckliga tillstånd. Tidigt avtåg räknas som halvt uteblivet anträdande: 750 SEK.</p>
+      </div>
+    </div>
+    <div class="par">
+      <span class="sign">&sect;18</span>
+      <div>
+        <h3>Tystnadsplikt om krigsbytet</h3>
+        <p>Den som får kännedom om bytets innehåll tiger. Den som röjer det bär hem det, oavsett vilken grupp som segrat.</p>
+      </div>
+    </div>
+    <div class="par">
+      <span class="sign">&sect;19</span>
+      <div>
+        <h3>Ordern gäller</h3>
+        <p>Stadgarna gäller tills <span class="ob">Andreas Sturesson</span> beslutar annat. Ändringar meddelas i efterhand och tillämpas från och med tidigare.</p>
+      </div>
+    </div>
+
+    <p class="grupp">Bötestaxa</p>
+    <div class="taxa">
+      <div class="tablewrap" style="border:0"><table>
+        <thead>
+          <tr><th scope="col">Förseelse</th><th scope="col">Påföljd</th><th scope="col">Paragraf</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Uteblivet anträdande</td><td><b>1 500 SEK</b> + avsked på livstid</td><td>&sect;1&ndash;&sect;3</td></tr>
+          <tr><td>Glömd lösen vid grinden</td><td>Avvisning för alltid + <b>1 500 SEK</b></td><td>&sect;4</td></tr>
+          <tr><td>Sen ankomst</td><td>100 SEK per påbörjad kvart</td><td>&sect;9</td></tr>
+          <tr><td>Telefon under pågående moment</td><td>200 SEK</td><td>&sect;10</td></tr>
+          <tr><td>Överklagan av domslut</td><td>100 SEK, avslås</td><td>&sect;16</td></tr>
+          <tr><td>Avtåg före 22.30</td><td>750 SEK</td><td>&sect;17</td></tr>
+          <tr><td>Röjande av krigsbytet</td><td>Bytet bärs hem av den skyldige</td><td>&sect;18</td></tr>
+        </tbody>
+      </table></div>
+      <p class="swish">Samtliga belopp swishas <b>omedelbart</b> till Överbefälhavare <span class="ob">Andreas Sturesson</span>. Kontant betalning mottas ej. Avbetalningsplan finns ej. Amnesti utfärdas ej.</p>
+    </div>
+  </section>
+
+  <footer>
+    <p>Ordern utfärdad av befälet. En anmälan är bindande enligt §1.</p>
+    <p><b>Böter vid utebliven närvaro: 1 500 SEK.</b> Swishas omedelbart till Överbefälhavare <span class="ob">Andreas Sturesson</span>.</p>
+    <p>Operation Svart Duk · Täljstensgatan 19 · Lör 12 sep, anträdande 17.00 · Mundering m/valfri</p>
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  var KEY = 'herrmiddag.v3';
+  var OB = 'Andreas Sturesson';
+  var ROSTER = ['Johan Henrysson','Johan Lindblom','Elias Vendelstrand','Erik Henrysson',
+    OB,'William Andersson','Alexander Van Geijt','Per Arvidsson','Albin Johansson'];
+
+  var lagkort = document.getElementById('lagkort');
+  var tbody = document.getElementById('tbody');
+  var antal = document.getElementById('antal');
+  var lottaBtn = document.getElementById('lotta');
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function shuffle(list){
+    var a = list.slice();
+    for (var i = a.length - 1; i > 0; i--){
+      var j = Math.floor(Math.random() * (i + 1));
+      var t = a[i]; a[i] = a[j]; a[j] = t;
+    }
+    return a;
+  }
+
+  function dela(n){
+    var order = shuffle(ROSTER);
+    var teams = [];
+    for (var i = 0; i < n; i++) teams.push([]);
+    order.forEach(function(namn, i){ teams[i % n].push(namn); });
+    return teams;
+  }
+
+  function tommaPoang(n){
+    var s = [];
+    for (var i = 0; i < n; i++) s.push({h:0, l:0, q:0});
+    return s;
+  }
+
+  function standardNamn(n, gamla){
+    var namn = [];
+    for (var i = 0; i < n; i++){
+      namn.push(gamla && gamla[i] ? gamla[i] : 'Grupp ' + (i + 1));
+    }
+    return namn;
+  }
+
+  var state = null;
+  try { state = JSON.parse(localStorage.getItem(KEY)); } catch (e) { state = null; }
+  if (!state || !Array.isArray(state.teams) || !state.teams.length) {
+    state = {teams: dela(3), scores: tommaPoang(3), names: standardNamn(3)};
+  }
+  if (!Array.isArray(state.scores) || state.scores.length !== state.teams.length) {
+    state.scores = tommaPoang(state.teams.length);
+  }
+  if (!Array.isArray(state.names) || state.names.length !== state.teams.length) {
+    state.names = standardNamn(state.teams.length, state.names);
+  }
+  antal.value = String(state.teams.length);
+
+  function save(){ try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} }
+
+  function ritaLag(teams, rullar){
+    lagkort.innerHTML = '';
+    teams.forEach(function(medlemmar, i){
+      var kort = document.createElement('div');
+      kort.className = 'lag' + (rullar ? ' rullar' : '');
+
+      var head = document.createElement('header');
+      var h = document.createElement('h3');
+      var namnInput = document.createElement('input');
+      namnInput.type = 'text';
+      namnInput.value = (state.names && state.names[i]) || ('Grupp ' + (i + 1));
+      namnInput.maxLength = 28;
+      namnInput.setAttribute('aria-label', 'Namn på grupp ' + (i + 1));
+      namnInput.disabled = !!rullar;
+      namnInput.addEventListener('input', function(){
+        state.names[i] = this.value;
+        save();
+        ritaTabell();
+      });
+      h.appendChild(namnInput);
+      var antalSpan = document.createElement('span');
+      antalSpan.textContent = medlemmar.length + ' man';
+      head.appendChild(h);
+      head.appendChild(antalSpan);
+
+      var ul = document.createElement('ul');
+      medlemmar.forEach(function(namn){
+        var li = document.createElement('li');
+        if (namn === OB) {
+          kort.classList.add('har-ob');
+          li.className = 'ob-rad';
+          var obNamn = document.createElement('span');
+          obNamn.className = 'ob';
+          obNamn.textContent = namn;
+          var obMark = document.createElement('em');
+          obMark.className = 'obbricka';
+          obMark.textContent = 'Överbefälhavare';
+          li.appendChild(obNamn);
+          li.appendChild(obMark);
+        } else {
+          li.textContent = namn;
+        }
+        ul.appendChild(li);
+      });
+
+      kort.appendChild(head);
+      kort.appendChild(ul);
+      lagkort.appendChild(kort);
+    });
+  }
+
+  function ritaTabell(){
+    var totals = state.scores.map(function(s){ return (+s.h||0) + (+s.l||0) + (+s.q||0); });
+    var best = Math.max.apply(null, totals);
+    var harPoang = totals.some(function(t){ return t > 0; });
+    tbody.innerHTML = '';
+
+    state.teams.forEach(function(medlemmar, i){
+      var total = totals[i];
+      var leder = harPoang && total === best;
+      var tr = document.createElement('tr');
+      if (leder) tr.className = 'lead';
+
+      var tdNamn = document.createElement('td');
+      tdNamn.className = 'lagnamn';
+      var namnRad = document.createElement('span');
+      namnRad.className = 'namn';
+      namnRad.textContent = (state.names[i] || '').trim() || ('Grupp ' + (i + 1));
+      var medlemRad = document.createElement('span');
+      medlemRad.className = 'medlemmar';
+      medlemmar.forEach(function(namn, k){
+        var delar = namn.split(' ');
+        var kort = delar[0] + ' ' + delar[delar.length - 1].charAt(0) + '.';
+        if (k > 0) medlemRad.appendChild(document.createTextNode(', '));
+        if (namn === OB) {
+          var obSpan = document.createElement('span');
+          obSpan.className = 'ob';
+          obSpan.textContent = kort + ' (ÖB)';
+          medlemRad.appendChild(obSpan);
+        } else {
+          medlemRad.appendChild(document.createTextNode(kort));
+        }
+      });
+      tdNamn.appendChild(namnRad);
+      if (medlemmar.indexOf(OB) !== -1) {
+        var obChip = document.createElement('em');
+        obChip.className = 'obbricka';
+        obChip.textContent = 'ÖB';
+        namnRad.appendChild(obChip);
+      }
+      tdNamn.appendChild(medlemRad);
+
+      function cell(key, label){
+        var td = document.createElement('td');
+        td.className = 'num';
+        var inp = document.createElement('input');
+        inp.type = 'number';
+        inp.step = '1';
+        inp.value = String(+state.scores[i][key] || 0);
+        inp.setAttribute('aria-label', label + ', grupp ' + (i + 1));
+        inp.addEventListener('input', function(){
+          state.scores[i][key] = parseInt(this.value, 10) || 0;
+          save();
+          ritaTabell();
+        });
+        td.appendChild(inp);
+        return td;
+      }
+
+      var tdTotal = document.createElement('td');
+      tdTotal.className = 'total';
+      tdTotal.textContent = String(total);
+      if (leder) {
+        var pill = document.createElement('span');
+        pill.className = 'pill';
+        pill.textContent = 'Leder';
+        tdTotal.appendChild(pill);
+      }
+
+      tr.appendChild(tdNamn);
+      tr.appendChild(cell('h', 'Hitster'));
+      tr.appendChild(cell('l', 'Lappleken'));
+      tr.appendChild(cell('q', 'Quiz'));
+      tr.appendChild(tdTotal);
+      tbody.appendChild(tr);
+    });
+  }
+
+  function harPoangSatta(){
+    return state.scores.some(function(s){ return (+s.h||0) + (+s.l||0) + (+s.q||0) > 0; });
+  }
+
+  function slutfor(teams){
+    var behall = state.names && state.names.length === teams.length ? state.names : null;
+    state.teams = teams;
+    state.scores = tommaPoang(teams.length);
+    state.names = standardNamn(teams.length, behall);
+    save();
+    ritaLag(teams, false);
+    ritaTabell();
+    lottaBtn.disabled = false;
+    antal.disabled = false;
+  }
+
+  lottaBtn.addEventListener('click', function(){
+    if (harPoangSatta() && !window.confirm('Ny lottning nollställer stridsvärdet. Vill du fortsätta?')) return;
+    var n = parseInt(antal.value, 10) || 3;
+    var slutgiltiga = dela(n);
+
+    if (reduced) { slutfor(slutgiltiga); return; }
+
+    lottaBtn.disabled = true;
+    antal.disabled = true;
+    var varv = 0;
+    var timer = setInterval(function(){
+      varv++;
+      if (varv >= 14) {
+        clearInterval(timer);
+        slutfor(slutgiltiga);
+      } else {
+        ritaLag(dela(n), true);
+      }
+    }, 70);
+  });
+
+  document.getElementById('nollstall').addEventListener('click', function(){
+    state.scores = tommaPoang(state.teams.length);
+    save();
+    ritaTabell();
+  });
+
+  ritaLag(state.teams, false);
+  ritaTabell();
+})();
+</script>
